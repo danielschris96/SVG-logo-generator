@@ -45,7 +45,6 @@ function init () {
             } else if (data.shape === "Square") {
               shape = new Square(data.characters, data.textColor, data.shapeColor);
             }
-        
             const logo = generateSVG(shape);
         
             fs.writeFile("logo.svg", logo, (err) =>
@@ -54,5 +53,9 @@ function init () {
           });
 };
 
+function generateSVG(shape) {
+    const svg = `<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">${shape.render()}</svg>`;
+    return svg;
+  }
 
 init()

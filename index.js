@@ -1,6 +1,5 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const jest = require('jest');
 const {Circle, Triangle, Square} = require("./lib/shapes.js");
 
 function init () {
@@ -11,11 +10,11 @@ function init () {
                 message: 'What characters (no more than 3) would you like your logo to display?',
                 name: 'characters',
                 validate: function (input) {
-                    if (input.length < 4) {
+                    if (input.length < 4 && input.length !== 0) {
                         return true;
                     }
                     else {
-                        return 'Please enter 3 or less characters';
+                        return 'Please enter 1 - 3 characters';
                     }
                 }
             },
@@ -48,7 +47,7 @@ function init () {
             const logo = generateSVG(shape);
         
             fs.writeFile("logo.svg", logo, (err) =>
-              err ? console.log(err) : console.log("Successfully generated logo.svg")
+              err ? console.log(err) : console.log("Generated logo.svg")
             );
           });
 };
@@ -56,6 +55,6 @@ function init () {
 function generateSVG(shape) {
     const svg = `<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">${shape.render()}</svg>`;
     return svg;
-  }
+  };
 
-init()
+init();
